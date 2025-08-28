@@ -32,7 +32,7 @@
   - 2.2 建立 `config-example.yaml` 範例設定檔，包含 `obsidian_vault_path` 欄位
   - 2.3 更新 `.gitignore` 檔案，新增 `config.yaml` 到排除清單
 
-- [ ] 3. 實作核心複製腳本
+- [x] 3. 實作核心複製腳本
   - 3.1 建立 `scripts/copy-obsidian-vault.js` 腳本檔案
   - 3.2 實作設定檔讀取功能，檢查 `config.yaml` 是否存在
   - 3.3 實作 Obsidian vault 路徑驗證功能
