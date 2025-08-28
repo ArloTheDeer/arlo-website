@@ -22,7 +22,7 @@
 
 ## 任務
 
-- [ ] 1. 安裝並設定專案依賴
+- [x] 1. 安裝並設定專案依賴
   - 1.1 安裝 `shelljs` 套件作為專案依賴
   - 1.2 安裝 `js-yaml` 套件用於讀取 YAML 設定檔
   - 1.3 安裝 `@types/shelljs` 作為 TypeScript 類型定義（devDependencies）
