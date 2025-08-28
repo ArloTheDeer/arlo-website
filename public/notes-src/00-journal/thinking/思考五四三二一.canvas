@@ -1,0 +1,41 @@
+{
+	"nodes":[
+		{"id":"3e45eaa45473e15f","x":-120,"y":-300,"width":290,"height":300,"type":"group","label":"Channel"},
+		{"id":"18b459a5545a6725","x":-480,"y":-160,"width":250,"height":60,"color":"4","type":"text","text":"渠道"},
+		{"id":"94917bbfe2a5d400","x":-100,"y":-280,"width":250,"height":60,"color":"5","type":"text","text":"Youtube"},
+		{"id":"19eb773c96fc99ae","x":-100,"y":-80,"width":250,"height":60,"color":"5","type":"text","text":"寫文章"},
+		{"id":"96ead9208682fb47","x":300,"y":-340,"width":250,"height":60,"type":"text","text":"看評論"},
+		{"id":"c1dcc619ba3a0a1c","x":300,"y":-100,"width":341,"height":120,"type":"text","text":"- 有評論系統\n- 可以看到分享到社群網路的貼文"},
+		{"id":"5e32b2db2c2df0b2","x":700,"y":-220,"width":250,"height":60,"type":"text","text":"紀錄"},
+		{"id":"a516d98855df2f3c","x":1100,"y":-220,"width":250,"height":60,"type":"text","text":"五年目標：想幫助至少一百個人"},
+		{"id":"de4cbeee54e82209","x":734,"y":-27,"width":250,"height":107,"type":"text","text":"三個禮拜或是兩天：制定一個紀錄的計畫就可以"},
+		{"id":"cac50429a06488e1","x":175,"y":-718,"width":250,"height":60,"type":"text","text":"訪談"},
+		{"id":"a26212a93a3e8192","x":525,"y":-740,"width":250,"height":105,"type":"text","text":"可以找到觀眾內有共鳴的對象"},
+		{"id":"216886181ae6b09d","x":100,"y":-520,"width":250,"height":60,"type":"text","text":"因為想要評估是否有達到目標"},
+		{"id":"0c5ae9be14d8d7b0","x":-280,"y":-520,"width":250,"height":60,"type":"text","text":"要怎麼追蹤？"},
+		{"id":"b5ef8ca9c72fb3ae","x":859,"y":-717,"width":250,"height":60,"type":"text","text":"來評論"},
+		{"id":"0f838992113e2d2f","x":300,"y":-1060,"width":250,"height":60,"type":"text","text":"分享：展示工作流程"},
+		{"id":"7eca956c9995c22c","x":695,"y":-1160,"width":250,"height":60,"type":"text","text":"以前：寫程式要非常專心"},
+		{"id":"1586df04390a4c90","x":687,"y":-1019,"width":250,"height":99,"type":"text","text":"AI: 因為要等 AI 回覆的關係，所以有很多空閒的時間。"},
+		{"id":"02c2aea33e43c9ca","x":1040,"y":-1057,"width":280,"height":137,"type":"text","text":"展示 AI 工作流程，分享自己的工作流程給其他，希望也可以幫助他們更熟悉跟 AI 一起寫程式的工作流程"},
+		{"id":"ed5129f6ae97e5b0","x":1225,"y":-863,"width":342,"height":176,"type":"text","text":"開發一些專案，放在 Github 上面。更重要的是分享開發的過程。"},
+		{"id":"29200f26d8bbde85","x":1052,"y":-500,"width":268,"height":129,"type":"text","text":"開發從簡單到複雜的三個專案，來展示 AI 工作流程。並且針對不同的主題剪輯，讓大家可以更快的找到有興趣的專案"},
+		{"id":"751cd1725da35f1f","type":"text","text":"想一個可以完成的專案，並且實際完成。","x":1380,"y":-500,"width":268,"height":129}
+	],
+	"edges":[
+		{"id":"8005a4f202b95d31","fromNode":"18b459a5545a6725","fromSide":"right","toNode":"94917bbfe2a5d400","toSide":"left"},
+		{"id":"d24478fb35b8fd5f","fromNode":"18b459a5545a6725","fromSide":"right","toNode":"19eb773c96fc99ae","toSide":"left"},
+		{"id":"6006c8b9de613315","fromNode":"94917bbfe2a5d400","fromSide":"right","toNode":"96ead9208682fb47","toSide":"left"},
+		{"id":"c2c0f7fe33c848f1","fromNode":"0c5ae9be14d8d7b0","fromSide":"right","toNode":"216886181ae6b09d","toSide":"left"},
+		{"id":"26b8c93b4e60f954","fromNode":"96ead9208682fb47","fromSide":"right","toNode":"5e32b2db2c2df0b2","toSide":"left"},
+		{"id":"2a726d2046779027","fromNode":"5e32b2db2c2df0b2","fromSide":"right","toNode":"a516d98855df2f3c","toSide":"left","label":"追蹤"},
+		{"id":"9696bce09cf6590d","fromNode":"19eb773c96fc99ae","fromSide":"right","toNode":"c1dcc619ba3a0a1c","toSide":"left"},
+		{"id":"8d677be56b33605f","fromNode":"c1dcc619ba3a0a1c","fromSide":"right","toNode":"5e32b2db2c2df0b2","toSide":"left"},
+		{"id":"06445ab9eb5c1c90","fromNode":"5e32b2db2c2df0b2","fromSide":"bottom","toNode":"de4cbeee54e82209","toSide":"top"},
+		{"id":"19dbe940ad1fdc93","fromNode":"cac50429a06488e1","fromSide":"right","toNode":"a26212a93a3e8192","toSide":"left"},
+		{"id":"781e0fc47b0f8956","fromNode":"a26212a93a3e8192","fromSide":"right","toNode":"b5ef8ca9c72fb3ae","toSide":"left"},
+		{"id":"db2ff54a3e39b655","fromNode":"b5ef8ca9c72fb3ae","fromSide":"bottom","toNode":"96ead9208682fb47","toSide":"top"},
+		{"id":"1078f432bc893d5e","fromNode":"0f838992113e2d2f","fromSide":"right","toNode":"7eca956c9995c22c","toSide":"left"},
+		{"id":"e2b133486a6d9497","fromNode":"0f838992113e2d2f","fromSide":"right","toNode":"1586df04390a4c90","toSide":"left"}
+	]
+}

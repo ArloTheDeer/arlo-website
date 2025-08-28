@@ -80,44 +80,41 @@ function cleanTargetDirectory() {
  * @param {string} vaultPath - Source Obsidian vault path
  */
 function copyVaultFiles(vaultPath) {
-  log(`Creating ${TARGET_DIR} directory...`);
-  const mkdirResult = shell.mkdir('-p', TARGET_DIR);
-  if (mkdirResult.code !== 0) {
-    exitWithError(`Failed to create ${TARGET_DIR}: ${mkdirResult.stderr}`);
+  log(`Copying all files from ${vaultPath} to ${TARGET_DIR}...`);
+  
+  // Copy the entire directory
+  const copyResult = shell.cp('-R', vaultPath, TARGET_DIR);
+  if (copyResult.code !== 0) {
+    exitWithError(`Failed to copy files from ${vaultPath}: ${copyResult.stderr}`);
   }
-
-  log(`Copying files from ${vaultPath} to ${TARGET_DIR}...`);
   
-  // Use shell.find to get all files/directories, then filter out hidden ones
-  const allItems = shell.find(vaultPath);
-  
-  // Filter out items that start with '.' (hidden files/directories)
-  const visibleItems = allItems.filter(item => {
-    const relativePath = path.relative(vaultPath, item);
-    // Skip if any part of the path starts with '.'
-    return !relativePath.split(path.sep).some(part => part.startsWith('.'));
-  });
-
-  // Copy each visible item
-  visibleItems.forEach(item => {
-    const relativePath = path.relative(vaultPath, item);
-    const targetPath = path.join(TARGET_DIR, relativePath);
-    
-    if (shell.test('-d', item)) {
-      // Create directory
-      shell.mkdir('-p', targetPath);
-    } else if (shell.test('-f', item)) {
-      // Copy file
-      const targetDir = path.dirname(targetPath);
-      shell.mkdir('-p', targetDir);
-      const copyResult = shell.cp(item, targetPath);
-      if (copyResult.code !== 0) {
-        exitWithError(`Failed to copy ${item}: ${copyResult.stderr}`);
-      }
-    }
-  });
+  log(`Removing hidden files and directories...`);
+  // Remove all hidden files and directories recursively
+  removeHiddenFiles(TARGET_DIR);
 
   log(`Successfully copied vault contents to ${TARGET_DIR}`);
+}
+
+/**
+ * Recursively remove hidden files and directories (starting with '.')
+ * @param {string} dirPath - Directory to clean
+ */
+function removeHiddenFiles(dirPath) {
+  if (!shell.test('-d', dirPath)) return;
+  
+  const items = shell.ls('-A', dirPath);
+  items.forEach(item => {
+    const itemName = item.toString();
+    const itemPath = path.join(dirPath, itemName);
+    
+    if (itemName.startsWith('.')) {
+      log(`Removing hidden item: ${itemName}`);
+      shell.rm('-rf', itemPath);
+    } else if (shell.test('-d', itemPath)) {
+      // Recursively clean subdirectories
+      removeHiddenFiles(itemPath);
+    }
+  });
 }
 
 /**

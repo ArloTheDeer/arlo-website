@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "copy-obsidian-vault": "node scripts/copy-obsidian-vault.js"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",

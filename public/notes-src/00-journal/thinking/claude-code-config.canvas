@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"95ff3ac4cd5a021b","x":-220,"y":-220,"width":287,"height":111,"type":"text","text":"輸入：我想解決的問題、我想修改的功能"},
+		{"id":"1212ede89bde225e","type":"text","text":"AI 反問我一些我可能沒有想清楚的地方。","x":-220,"y":-60,"width":287,"height":111},
+		{"id":"b873cdc5adbe47e3","type":"text","text":"產生一份 PRD","x":-220,"y":100,"width":287,"height":111},
+		{"id":"8256127181df9b66","type":"text","text":"針對 PRD 覺得有問題的地方進行修改","x":-220,"y":260,"width":287,"height":111},
+		{"id":"dc042cd84cb837b2","x":-620,"y":70,"width":250,"height":60,"type":"text","text":"Create PRD"},
+		{"id":"545e49f57c8eba4e","type":"text","text":"產生實作計畫（無測試）","x":220,"y":-120,"width":250,"height":60},
+		{"id":"0e7d362c097560fd","type":"text","text":"分成不同任務切分的工作任務","x":600,"y":-257,"width":287,"height":111},
+		{"id":"e5f04ffe89f03714","type":"text","text":"驗收標準\n- Gherkin 語法\n- cucumber","x":600,"y":-41,"width":287,"height":211},
+		{"id":"2dbd669d2935e62b","type":"text","text":"process-task-list\n- 依序完成每一個工作並且標示進度\n- 最後一個工作是驗收","x":1020,"y":-146,"width":250,"height":160},
+		{"id":"bc15335c5e691504","type":"text","text":"產生實作計畫（有測試）","x":220,"y":371,"width":250,"height":60,"color":"1"},
+		{"id":"be651f339a736aa5","type":"text","text":"process-task-list\n- 依序完成每一個工作並且標示進度\n- 最後一個工作是驗收","x":1040,"y":321,"width":250,"height":160,"color":"1"}
+	],
+	"edges":[
+		{"id":"b4376ab6b389865a","fromNode":"dc042cd84cb837b2","fromSide":"right","toNode":"95ff3ac4cd5a021b","toSide":"left"},
+		{"id":"4403c63d492e0355","fromNode":"95ff3ac4cd5a021b","fromSide":"bottom","toNode":"1212ede89bde225e","toSide":"top"},
+		{"id":"c17b85de7b4c5931","fromNode":"1212ede89bde225e","fromSide":"bottom","toNode":"b873cdc5adbe47e3","toSide":"top"},
+		{"id":"4ecf7736989cb14d","fromNode":"b873cdc5adbe47e3","fromSide":"bottom","toNode":"8256127181df9b66","toSide":"top"},
+		{"id":"9ebe54e152c9cd9d","fromNode":"8256127181df9b66","fromSide":"right","toNode":"545e49f57c8eba4e","toSide":"left"},
+		{"id":"8aee903240f0d70e","fromNode":"545e49f57c8eba4e","fromSide":"right","toNode":"0e7d362c097560fd","toSide":"left"},
+		{"id":"e575905d1c645f43","fromNode":"545e49f57c8eba4e","fromSide":"right","toNode":"e5f04ffe89f03714","toSide":"left"},
+		{"id":"31f4545f21e45967","fromNode":"0e7d362c097560fd","fromSide":"right","toNode":"2dbd669d2935e62b","toSide":"left"},
+		{"id":"7e2d25c5be309532","fromNode":"e5f04ffe89f03714","fromSide":"right","toNode":"2dbd669d2935e62b","toSide":"left"},
+		{"id":"aad35a07f8f8c311","fromNode":"8256127181df9b66","fromSide":"right","toNode":"bc15335c5e691504","toSide":"left"}
+	]
+}

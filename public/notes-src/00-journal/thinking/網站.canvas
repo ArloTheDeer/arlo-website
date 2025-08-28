@@ -1,0 +1,25 @@
+{
+	"nodes":[
+		{"id":"f4e040a3fcbda9b3","type":"text","text":"筆記 => obsidian 直接放到靜態網頁上","x":-440,"y":-140,"width":250,"height":100},
+		{"id":"90ab7a2cb3660c8e","type":"text","text":"功能","x":-40,"y":249,"width":250,"height":60},
+		{"id":"8dc6d57451545599","type":"text","text":"技術","x":-20,"y":-280,"width":250,"height":60},
+		{"id":"9cf2c06f5e4229cf","type":"text","text":"Cloudflare","x":372,"y":-216,"width":250,"height":60},
+		{"id":"3fdfe92ea446a7ae","type":"text","text":"Next.js","x":372,"y":-366,"width":250,"height":60},
+		{"id":"d1204c414b2da233","type":"text","text":"首頁","x":-880,"y":-250,"width":250,"height":60},
+		{"id":"eddd7c637c7bcbe5","x":-440,"y":-366,"width":250,"height":60,"type":"text","text":"部落格"},
+		{"id":"fdc03950f8e4e243","type":"text","text":"設定一個 obsidian 的路徑，這個路徑的檔案都會被複製到 public/notes 裡面（不包含 . 開頭的目錄與檔案，比如說 `.obsidian`）。\n\n我們希望給每一個檔案都一個對應的網址，比如說 00-journal/2025-08 對應到\n\nhttps://www.arlothedeer.xyz/notes/00-journal/2025-08\n\n後面沒有 .md","x":386,"y":171,"width":473,"height":277},
+		{"id":"9bb77b56433d8abd","type":"text","text":"- 左邊有檔案導覽\n- 點選檔案之後，右邊會顯示使用 markdown 語法解析後的網頁內容\n- 未來\n\t- 支援 obsidian canvas\n\t- syntax highlight\n\t- mermaid\n\t- latex","x":386,"y":511,"width":473,"height":277},
+		{"id":"e16d695a685ceb7f","x":386,"y":0,"width":250,"height":60,"type":"text","text":"靜態網頁"}
+	],
+	"edges":[
+		{"id":"56ac49f9abcdcd1d","fromNode":"8dc6d57451545599","fromSide":"right","toNode":"3fdfe92ea446a7ae","toSide":"left"},
+		{"id":"d1b68a4256bc5bd0","fromNode":"8dc6d57451545599","fromSide":"right","toNode":"9cf2c06f5e4229cf","toSide":"left"},
+		{"id":"8dc63f4dd29e2faa","fromNode":"f4e040a3fcbda9b3","fromSide":"right","toNode":"90ab7a2cb3660c8e","toSide":"left"},
+		{"id":"77b89dce092849da","fromNode":"90ab7a2cb3660c8e","fromSide":"right","toNode":"fdc03950f8e4e243","toSide":"left"},
+		{"id":"1035a13bf4869cb5","fromNode":"90ab7a2cb3660c8e","fromSide":"right","toNode":"9bb77b56433d8abd","toSide":"left"},
+		{"id":"9ba1cdef1fe85f5b","fromNode":"f4e040a3fcbda9b3","fromSide":"right","toNode":"8dc6d57451545599","toSide":"left"},
+		{"id":"0e0324d88791f5cd","fromNode":"d1204c414b2da233","fromSide":"right","toNode":"eddd7c637c7bcbe5","toSide":"left"},
+		{"id":"9ed9e39f97598840","fromNode":"d1204c414b2da233","fromSide":"right","toNode":"f4e040a3fcbda9b3","toSide":"left"},
+		{"id":"9a9349e305ffe79a","fromNode":"90ab7a2cb3660c8e","fromSide":"right","toNode":"e16d695a685ceb7f","toSide":"left"}
+	]
+}
