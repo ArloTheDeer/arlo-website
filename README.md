@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arlo Website
+
+A Next.js static website featuring integrated Obsidian vault synchronization. This project allows you to seamlessly sync your Obsidian notes to a static website that will be deployed on Cloudflare Pages.
+
+## Features
+
+- 📝 **Obsidian Integration**: Sync your entire Obsidian vault to the website
+- 🔄 **Automatic Filtering**: Excludes hidden files and system directories (`.obsidian`, `.trash`, etc.)
+- 📁 **Structure Preservation**: Maintains your original folder hierarchy
+- ⚡ **Static Generation**: Built with Next.js for optimal performance
+- ☁️ **Cloudflare Pages Ready**: Optimized for Cloudflare Pages deployment
+- 🔧 **Simple Commands**: One-command vault synchronization
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (v18 or later)
+- npm or yarn
+- An Obsidian vault
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd arlo-website
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up Obsidian vault configuration:
+```bash
+cp config-example.yaml config.yaml
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Edit `config.yaml` and update the `obsidian_vault_path` to point to your Obsidian vault:
+```yaml
+obsidian_vault_path: "/path/to/your/obsidian/vault"
+```
 
-## Learn More
+### Usage
 
-To learn more about Next.js, take a look at the following resources:
+#### Sync Obsidian Vault
+```bash
+npm run copy-obsidian-vault
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This command will:
+- Clear the existing `public/notes-src` directory
+- Copy all files from your Obsidian vault
+- Automatically filter out hidden files and directories
+- Preserve your folder structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Development
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Build for Production
+```bash
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+arlo-website/
+├── app/                    # Next.js app directory
+├── public/
+│   └── notes-src/         # Synced Obsidian vault content
+├── scripts/
+│   └── copy-obsidian-vault.js  # Vault sync script
+├── docs/
+│   └── specs/             # Project specifications and documentation
+├── config-example.yaml    # Example configuration file
+└── config.yaml           # Your personal configuration (excluded from git)
+```
+
+## Future Features
+
+- 🎨 **Obsidian Canvas Support**: Display Obsidian canvas files
+- 🌈 **Syntax Highlighting**: Code blocks with syntax highlighting
+- 📊 **Mermaid Diagrams**: Render Mermaid diagrams from markdown
+- 📐 **LaTeX Support**: Mathematical formula rendering
+
+## Development
+
+This project uses:
+- **Next.js 15** - React framework for static site generation
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS framework
+- **ShellJS** - Cross-platform Unix shell commands
+- **js-yaml** - YAML parser for configuration
+
+## Deployment
+
+The website is designed to be deployed on **Cloudflare Pages**:
+
+1. Build the static site:
+```bash
+npm run build
+```
+
+2. Deploy the `out/` directory to Cloudflare Pages
+
+## Documentation
+
+For detailed implementation information, see:
+- [Project Goals](./GOALS.md)
+- [Feature Specifications](./docs/specs/)
+
+## Contributing
+
+This is a personal project, but feel free to open issues or submit pull requests if you find any problems or have suggestions for improvements.
