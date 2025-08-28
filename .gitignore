@@ -43,3 +43,6 @@ next-env.d.ts
 docs/conversations.md
 docs/llm
 .claude/settings.local.json
+
+# copy-obsidian-vault config
+config.yaml

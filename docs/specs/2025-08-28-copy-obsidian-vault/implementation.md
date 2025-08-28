@@ -27,7 +27,7 @@
   - 1.2 安裝 `js-yaml` 套件用於讀取 YAML 設定檔
   - 1.3 安裝 `@types/shelljs` 作為 TypeScript 類型定義（devDependencies）
 
-- [ ] 2. 建立設定檔範本和目錄結構
+- [x] 2. 建立設定檔範本和目錄結構
   - 2.1 建立 `scripts/` 目錄（如果不存在）
   - 2.2 建立 `config-example.yaml` 範例設定檔，包含 `obsidian_vault_path` 欄位
   - 2.3 更新 `.gitignore` 檔案，新增 `config.yaml` 到排除清單

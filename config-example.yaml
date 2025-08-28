@@ -1,0 +1,7 @@
+# Copy Obsidian Vault Configuration
+# Copy this file to config.yaml and fill in your Obsidian vault path
+
+# Full path to your Obsidian vault
+# Windows example: "C:\\Users\\YourName\\Documents\\ObsidianVault"
+# macOS/Linux example: "/Users/YourName/Documents/ObsidianVault"
+obsidian_vault_path: "/path/to/your/obsidian/vault"
