@@ -7,6 +7,7 @@
 ## 🛠 Todo
 - [ ] Prepare a day
 - [ ] 把今天做的事情寫到月誌
+- [ ] obsidian vault 備份到 github
 
 
 # 💡 Notes
