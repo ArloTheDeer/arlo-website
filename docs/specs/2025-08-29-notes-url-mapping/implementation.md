@@ -23,7 +23,7 @@
 
 ## 任務
 
-- [ ] 1. 設定 Next.js 靜態輸出模式
+- [x] 1. 設定 Next.js 靜態輸出模式
   - 1.1 修改 `next.config.ts` 加入 `output: 'export'` 設定
   - 1.2 設定 `trailingSlash: true` 以支援靜態檔案結構
   - 1.3 測試基本的靜態建置功能
