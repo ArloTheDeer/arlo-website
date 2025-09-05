@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"id":"d03a257056a8db49","x":-480,"y":440,"width":740,"height":380,"type":"group","label":"不是筆記網站的範圍"},
+		{"id":"159bb43f8668b316","x":-528,"y":-245,"width":250,"height":60,"color":"5","type":"text","text":"導覽欄"},
+		{"id":"a40a269f00366cdf","x":-172,"y":-324,"width":250,"height":60,"color":"5","type":"text","text":"瀏覽筆記"},
+		{"id":"2c96b6ea0d8fa95e","x":383,"y":-563,"width":250,"height":60,"color":"5","type":"text","text":"內部連結要可以點擊"},
+		{"id":"7fe3790e233686df","x":383,"y":-388,"width":250,"height":91,"color":"5","type":"text","text":"每篇筆記都要有自己的路徑"},
+		{"id":"e97c06d1f42013f6","x":380,"y":-264,"width":250,"height":60,"color":"4","type":"text","text":"支援圖片"},
+		{"id":"d02a0c9d0e167c58","x":380,"y":-145,"width":250,"height":60,"color":"4","type":"text","text":"Syntax highlight"},
+		{"id":"206cd9932a32e0db","x":-71,"y":520,"width":250,"height":60,"type":"text","text":"部落格"},
+		{"id":"7b7a405e53ea1f06","x":-405,"y":607,"width":250,"height":60,"type":"text","text":"可以延伸成"},
+		{"id":"5d834956f758b0e5","x":-59,"y":680,"width":250,"height":60,"type":"text","text":"首頁"},
+		{"id":"3d00d69c5d53dd5a","x":-172,"y":-175,"width":250,"height":60,"color":"4","type":"text","text":"目錄可以可以開合收閉"},
+		{"id":"ac3a8dca0d07b387","x":380,"y":40,"width":250,"height":60,"type":"text","text":"支援 Obsidian Canvas"},
+		{"id":"d9bf3cb88904b1b8","x":380,"y":140,"width":250,"height":60,"type":"text","text":"支援數學公式？"}
+	],
+	"edges":[
+		{"id":"a3543e460202c645","fromNode":"159bb43f8668b316","fromSide":"right","toNode":"a40a269f00366cdf","toSide":"left"},
+		{"id":"04afd74a237e574c","fromNode":"7b7a405e53ea1f06","fromSide":"right","toNode":"206cd9932a32e0db","toSide":"left"},
+		{"id":"9411fcf8d58e40e5","fromNode":"7b7a405e53ea1f06","fromSide":"right","toNode":"5d834956f758b0e5","toSide":"left"},
+		{"id":"f7e786d5650d9c7b","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"2c96b6ea0d8fa95e","toSide":"left"},
+		{"id":"bdd12df8d12267d5","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"7fe3790e233686df","toSide":"left"},
+		{"id":"6bd79dac938ee9f7","fromNode":"159bb43f8668b316","fromSide":"right","toNode":"3d00d69c5d53dd5a","toSide":"left"},
+		{"id":"291802a58fd20ecb","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"d02a0c9d0e167c58","toSide":"left"},
+		{"id":"84e71e410b988849","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"d9bf3cb88904b1b8","toSide":"left"},
+		{"id":"0f18c95560f5a4bb","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"e97c06d1f42013f6","toSide":"left"},
+		{"id":"86c708ad3e80f884","fromNode":"a40a269f00366cdf","fromSide":"right","toNode":"ac3a8dca0d07b387","toSide":"left"}
+	]
+}
