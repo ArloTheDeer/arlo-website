@@ -34,7 +34,7 @@
   - 2.3 加入中文檔案名稱的處理和驗證
   - 2.4 實作 `generateStaticParams` 函數生成所有靜態路由
 
-- [ ] 3. 建立 URL 編碼處理工具 - 使用 tdd-developer agent 進行開發
+- [x] 3. 建立 URL 編碼處理工具 - 使用 tdd-developer agent 進行開發
   - 3.1 實作 `lib/path-utils.ts` 中的 URL 編碼/解碼功能
   - 3.2 處理中文字符、空格和特殊符號的編碼轉換
   - 3.3 確保 URL 路徑與檔案系統路徑的正確對應
