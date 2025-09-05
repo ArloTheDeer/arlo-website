@@ -28,7 +28,7 @@
   - 1.2 設定 `trailingSlash: true` 以支援靜態檔案結構
   - 1.3 測試基本的靜態建置功能
 
-- [ ] 2. 建立檔案掃描和路由生成工具 - 使用 tdd-developer agent 進行開發
+- [x] 2. 建立檔案掃描和路由生成工具 - 使用 tdd-developer agent 進行開發
   - 2.1 實作 `lib/notes.ts` 中的檔案掃描功能，能夠遞迴掃描 `public/notes-src` 目錄
   - 2.2 實作路徑映射邏輯，將檔案路徑轉換為路由參數
   - 2.3 加入中文檔案名稱的處理和驗證
