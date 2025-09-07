@@ -3,7 +3,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { generateStaticParams, readNoteContent } from '@/app/notes/[...slug]/page';
+import { generateStaticParamsWithBaseDir, readNoteContent } from '@/app/notes/[...slug]/page';
 import NotesPage from '@/app/notes/[...slug]/page';
 
 // Use fixtures directory for testing
@@ -11,7 +11,7 @@ const FIXTURES_DIR = '__tests__/fixtures/notes';
 
 describe('generateStaticParams', () => {
   it('returns all available note paths as static params', async () => {
-    const result = await generateStaticParams(FIXTURES_DIR);
+    const result = await generateStaticParamsWithBaseDir(FIXTURES_DIR);
     
     // Should include our fixture files
     expect(result).toContainEqual({ slug: ['00-journal', '2025-08'] });
@@ -22,12 +22,12 @@ describe('generateStaticParams', () => {
   });
 
   it('throws error for invalid base directory', async () => {
-    await expect(generateStaticParams('/etc/passwd'))
+    await expect(generateStaticParamsWithBaseDir('/etc/passwd'))
       .rejects.toThrow('Invalid base directory');
   });
 
   it('throws error for path traversal attempt', async () => {
-    await expect(generateStaticParams('../../../etc'))
+    await expect(generateStaticParamsWithBaseDir('../../../etc'))
       .rejects.toThrow('Invalid base directory');
   });
 });

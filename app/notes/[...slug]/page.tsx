@@ -24,11 +24,22 @@ function validateBaseDir(baseDir: string): string {
 }
 
 /**
- * Generate static params for all note routes
+ * Generate static params for all note routes with configurable base directory
+ * Used primarily for testing
  */
-export async function generateStaticParams(baseDir: string = 'public/notes-src'): Promise<{ slug: string[] }[]> {
+export async function generateStaticParamsWithBaseDir(baseDir: string): Promise<{ slug: string[] }[]> {
   const validatedBaseDir = validateBaseDir(baseDir);
   return generateAllNoteRoutes(validatedBaseDir);
+}
+
+/**
+ * Generate static params for all note routes
+ * Used by Next.js for static generation
+ */
+export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
+  // In production, always use the default notes directory
+  const baseDir = 'public/notes-src';
+  return generateStaticParamsWithBaseDir(baseDir);
 }
 
 /**
