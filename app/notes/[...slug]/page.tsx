@@ -1,21 +1,50 @@
 import { generateAllNoteRoutes, routeParamsToFilePath } from '@/lib/notes';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { notFound } from 'next/navigation';
+
+// Security: whitelist of allowed base directories
+const ALLOWED_BASE_DIRS = ['public/notes-src', '__tests__/fixtures/notes'];
+
+/**
+ * Validate and resolve base directory path
+ */
+function validateBaseDir(baseDir: string): string {
+  const normalizedPath = resolve(baseDir);
+  const isAllowed = ALLOWED_BASE_DIRS.some(allowed => 
+    normalizedPath === resolve(allowed) ||
+    normalizedPath.startsWith(resolve(allowed) + '/')
+  );
+  
+  if (!isAllowed) {
+    throw new Error(`Invalid base directory. Allowed directories: ${ALLOWED_BASE_DIRS.join(', ')}`);
+  }
+  
+  return normalizedPath;
+}
 
 /**
  * Generate static params for all note routes
  */
-export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
-  return generateAllNoteRoutes();
+export async function generateStaticParams(baseDir: string = 'public/notes-src'): Promise<{ slug: string[] }[]> {
+  const validatedBaseDir = validateBaseDir(baseDir);
+  return generateAllNoteRoutes(validatedBaseDir);
 }
 
 /**
  * Read note content from file system
  */
-export function readNoteContent(filePath: string): string {
+export function readNoteContent(filePath: string, baseDir: string = 'public/notes-src'): string {
+  const validatedBaseDir = validateBaseDir(baseDir);
+  const fullPath = resolve(validatedBaseDir, filePath);
+  
+  // Additional security: ensure the resolved path is still within the base directory
+  if (!fullPath.startsWith(validatedBaseDir)) {
+    throw new Error('Path traversal attempt detected');
+  }
+  
   try {
-    return readFileSync(filePath, 'utf-8');
+    return readFileSync(fullPath, 'utf-8');
   } catch (error: any) {
     if (error.code === 'ENOENT') {
       throw new Error('Note file not found');
@@ -33,16 +62,21 @@ interface NotesPageProps {
   }>;
 }
 
-export default async function NotesPage({ params }: NotesPageProps) {
+/**
+ * Note page component with configurable base directory
+ */
+export default async function NotesPage({ 
+  params,
+  baseDir = 'public/notes-src'
+}: NotesPageProps & { baseDir?: string }) {
   const { slug } = await params;
   
   try {
     // Convert route parameters to file path
     const filePath = routeParamsToFilePath(slug);
-    const fullPath = join('public/notes-src', filePath);
     
-    // Read note content
-    const content = readNoteContent(fullPath);
+    // Read note content with validated base directory
+    const content = readNoteContent(filePath, baseDir);
     
     // Extract title from content (first # line)
     const titleMatch = content.match(/^# (.+)$/m);

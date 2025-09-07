@@ -1,27 +1,17 @@
 /**
  * Tests for dynamic notes page component
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { generateStaticParams, readNoteContent } from '@/app/notes/[...slug]/page';
 import NotesPage from '@/app/notes/[...slug]/page';
-import { join } from 'path';
 
 // Use fixtures directory for testing
 const FIXTURES_DIR = '__tests__/fixtures/notes';
 
 describe('generateStaticParams', () => {
   it('returns all available note paths as static params', async () => {
-    // Mock the notes library to use fixtures directory
-    vi.doMock('@/lib/notes', () => ({
-      generateAllNoteRoutes: vi.fn().mockImplementation((baseDir = FIXTURES_DIR) => {
-        // This should return actual fixture files
-        const { generateAllNoteRoutes } = vi.importActual('@/lib/notes');
-        return generateAllNoteRoutes(baseDir);
-      })
-    }));
-
-    const result = await generateStaticParams();
+    const result = await generateStaticParams(FIXTURES_DIR);
     
     // Should include our fixture files
     expect(result).toContainEqual({ slug: ['00-journal', '2025-08'] });
@@ -31,27 +21,20 @@ describe('generateStaticParams', () => {
     expect(result.length).toBeGreaterThan(0);
   });
 
-  it('returns empty array when directory does not exist', async () => {
-    // Mock the notes library to use non-existent directory
-    vi.doMock('@/lib/notes', () => ({
-      generateAllNoteRoutes: vi.fn().mockImplementation(() => {
-        const { generateAllNoteRoutes } = vi.importActual('@/lib/notes');
-        return generateAllNoteRoutes('__tests__/fixtures/nonexistent');
-      })
-    }));
+  it('throws error for invalid base directory', async () => {
+    await expect(generateStaticParams('/etc/passwd'))
+      .rejects.toThrow('Invalid base directory');
+  });
 
-    const result = await generateStaticParams();
-    
-    expect(result).toEqual([]);
-    expect(result).toHaveLength(0);
+  it('throws error for path traversal attempt', async () => {
+    await expect(generateStaticParams('../../../etc'))
+      .rejects.toThrow('Invalid base directory');
   });
 });
 
 describe('readNoteContent', () => {
   it('reads and returns note content from file system', () => {
-    const filePath = join(FIXTURES_DIR, 'simple-file.md');
-    
-    const result = readNoteContent(filePath);
+    const result = readNoteContent('simple-file.md', FIXTURES_DIR);
     
     expect(result).toContain('# Simple Test File');
     expect(result).toContain('This is a simple test file at the root level');
@@ -59,16 +42,12 @@ describe('readNoteContent', () => {
   });
 
   it('throws error when file does not exist', () => {
-    const nonexistentPath = join(FIXTURES_DIR, 'nonexistent.md');
-
-    expect(() => readNoteContent(nonexistentPath))
+    expect(() => readNoteContent('nonexistent.md', FIXTURES_DIR))
       .toThrow('Note file not found');
   });
 
   it('handles Chinese filenames correctly', () => {
-    const filePath = join(FIXTURES_DIR, '20-area', 'Arlo The Deer 角色設定.md');
-    
-    const result = readNoteContent(filePath);
+    const result = readNoteContent('20-area/Arlo The Deer 角色設定.md', FIXTURES_DIR);
     
     expect(result).toContain('# Arlo The Deer 角色設定');
     expect(result).toContain('這是一個包含中文字符的測試檔案');
@@ -76,81 +55,58 @@ describe('readNoteContent', () => {
   });
 
   it('handles files with spaces in names', () => {
-    const filePath = join(FIXTURES_DIR, 'File with spaces.md');
-    
-    const result = readNoteContent(filePath);
+    const result = readNoteContent('File with spaces.md', FIXTURES_DIR);
     
     expect(result).toBeDefined();
     expect(typeof result).toBe('string');
   });
 
   it('handles nested directory files', () => {
-    const filePath = join(FIXTURES_DIR, '20-area', 'subdir', '深層檔案.md');
-    
-    const result = readNoteContent(filePath);
+    const result = readNoteContent('20-area/subdir/深層檔案.md', FIXTURES_DIR);
     
     expect(result).toBeDefined();
     expect(typeof result).toBe('string');
+  });
+
+  it('throws error for invalid base directory', () => {
+    expect(() => readNoteContent('test.md', '/etc/passwd'))
+      .toThrow('Invalid base directory');
+  });
+
+  it('throws error for path traversal attempt', () => {
+    expect(() => readNoteContent('../../../etc/passwd', FIXTURES_DIR))
+      .toThrow('Path traversal attempt detected');
   });
 });
 
 describe('NotesPage component', () => {
   it('renders note content correctly', async () => {
-    // Mock readNoteContent to use actual fixture file
-    vi.doMock('@/app/notes/[...slug]/page', async () => {
-      const actual = await vi.importActual('@/app/notes/[...slug]/page');
-      const { readFileSync } = await import('fs');
-      return {
-        ...actual,
-        readNoteContent: vi.fn().mockImplementation(() => {
-          return readFileSync(join(FIXTURES_DIR, 'simple-file.md'), 'utf-8');
-        })
-      };
-    });
-
     const params = Promise.resolve({ slug: ['simple-file'] });
-    render(await NotesPage({ params }));
+    render(await NotesPage({ params, baseDir: FIXTURES_DIR }));
     
     expect(screen.getByText('Simple Test File')).toBeInTheDocument();
     expect(screen.getByText(/This is a simple test file/)).toBeInTheDocument();
   });
 
   it('handles file not found gracefully', async () => {
-    // Mock readNoteContent to throw file not found error
-    vi.doMock('@/app/notes/[...slug]/page', async () => {
-      const actual = await vi.importActual('@/app/notes/[...slug]/page');
-      return {
-        ...actual,
-        readNoteContent: vi.fn().mockImplementation(() => {
-          throw new Error('Note file not found');
-        })
-      };
-    });
-
     const params = Promise.resolve({ slug: ['nonexistent'] });
-    render(await NotesPage({ params }));
+    render(await NotesPage({ params, baseDir: FIXTURES_DIR }));
     
     expect(screen.getByText('Note not found')).toBeInTheDocument();
     expect(screen.getByText('The requested note could not be found.')).toBeInTheDocument();
   });
 
   it('displays Chinese content correctly', async () => {
-    // Mock readNoteContent to use Chinese fixture file
-    vi.doMock('@/app/notes/[...slug]/page', async () => {
-      const actual = await vi.importActual('@/app/notes/[...slug]/page');
-      const { readFileSync } = await import('fs');
-      return {
-        ...actual,
-        readNoteContent: vi.fn().mockImplementation(() => {
-          return readFileSync(join(FIXTURES_DIR, '20-area', 'Arlo The Deer 角色設定.md'), 'utf-8');
-        })
-      };
-    });
-
     const params = Promise.resolve({ slug: ['20-area', 'Arlo The Deer 角色設定'] });
-    render(await NotesPage({ params }));
+    render(await NotesPage({ params, baseDir: FIXTURES_DIR }));
     
     expect(screen.getByText('Arlo The Deer 角色設定')).toBeInTheDocument();
     expect(screen.getByText(/這是一個包含中文字符的測試檔案/)).toBeInTheDocument();
+  });
+
+  it('throws error for invalid base directory', async () => {
+    const params = Promise.resolve({ slug: ['test'] });
+    await expect(NotesPage({ params, baseDir: '/etc/passwd' }))
+      .rejects.toThrow('Invalid base directory');
   });
 });
