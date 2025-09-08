@@ -8,23 +8,25 @@
     假設 筆記檔案已存放在 public/notes-src 目錄下
     並且 Next.js 應用程式已設定為靜態輸出模式
     並且 所有筆記路由已正確生成
+    並且 使用 "npm run dev" 啟動開發伺服器
+    並且 使用 MCP 瀏覽器工具訪問 "http://localhost:3000"
 
   場景: 基本筆記檔案映射
     假設 存在檔案 "public/notes-src/00-journal/2025-08.md"
-    當 我訪問網址 "http://localhost/notes/00-journal/2025-08"
+    當 我訪問網址 "http://localhost:3000/notes/00-journal/2025-08"
     那麼 頁面應該成功載入
     並且 應該顯示該筆記檔案的純文字內容
     並且 頁面標題應該包含筆記檔案名稱
 
   場景: 深層巢狀目錄映射
     假設 存在檔案 "public/notes-src/30-resources/templates/Project Template.md"
-    當 我訪問網址 "http://localhost/notes/30-resources/templates/Project%20Template"
+    當 我訪問網址 "http://localhost:3000/notes/30-resources/templates/Project%20Template"
     那麼 頁面應該成功載入
     並且 應該顯示該筆記檔案的純文字內容
 
   場景: 中文檔案名稱支援
     假設 存在檔案 "public/notes-src/20-area/Arlo The Deer 角色設定.md"
-    當 我訪問網址 "http://localhost/notes/20-area/Arlo%20The%20Deer%20%E8%A7%92%E8%89%B2%E8%A8%AD%E5%AE%9A"
+    當 我訪問網址 "http://localhost:3000/notes/20-area/Arlo%20The%20Deer%20%E8%A7%92%E8%89%B2%E8%A8%AD%E5%AE%9A"
     那麼 頁面應該成功載入
     並且 應該顯示該筆記檔案的純文字內容
     並且 URL 編碼應該正確解碼為對應的檔案名稱
@@ -38,7 +40,7 @@
 
   場景: 404 錯誤處理
     假設 不存在檔案 "public/notes-src/non-existent/file.md"
-    當 我訪問網址 "http://localhost/notes/non-existent/file"
+    當 我訪問網址 "http://localhost:3000/notes/non-existent/file"
     那麼 應該顯示 404 錯誤頁面
     並且 HTTP 狀態碼應該為 404
 
@@ -50,10 +52,10 @@
 
     例子:
       | file_path                                              | url                                                      |
-      | public/notes-src/00-journal/2025-08-22.md            | http://localhost/notes/00-journal/2025-08-22            |
-      | public/notes-src/00-journal/2025-08-29.md            | http://localhost/notes/00-journal/2025-08-29            |
-      | public/notes-src/30-resources/templates/daily-template.md | http://localhost/notes/30-resources/templates/daily-template |
-      | public/notes-src/30-resources/templates/文獻筆記範本.md | http://localhost/notes/30-resources/templates/%E6%96%87%E7%8D%BB%E7%AD%86%E8%A8%98%E7%AF%84%E6%9C%AC |
+      | public/notes-src/00-journal/2025-08-22.md            | http://localhost:3000/notes/00-journal/2025-08-22            |
+      | public/notes-src/00-journal/2025-08-29.md            | http://localhost:3000/notes/00-journal/2025-08-29            |
+      | public/notes-src/30-resources/templates/daily-template.md | http://localhost:3000/notes/30-resources/templates/daily-template |
+      | public/notes-src/30-resources/templates/文獻筆記範本.md | http://localhost:3000/notes/30-resources/templates/%E6%96%87%E7%8D%BB%E7%AD%86%E8%A8%98%E7%AF%84%E6%9C%AC |
 
   場景: URL 編碼解碼正確性驗證
     假設 筆記檔案包含各種特殊字符在檔案名稱中
