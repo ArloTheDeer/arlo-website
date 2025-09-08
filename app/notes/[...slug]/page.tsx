@@ -1,7 +1,6 @@
 import { generateAllNoteRoutes, routeParamsToFilePath } from '@/lib/notes';
 import { readFileSync } from 'fs';
-import { join, resolve } from 'path';
-import { notFound } from 'next/navigation';
+import { resolve } from 'path';
 
 // Security: whitelist of allowed base directories
 const ALLOWED_BASE_DIRS = ['public/notes-src', '__tests__/fixtures/notes'];
@@ -37,9 +36,15 @@ export async function generateStaticParamsWithBaseDir(baseDir: string): Promise<
  * Used by Next.js for static generation
  */
 export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
-  // In production, always use the default notes directory
-  const baseDir = 'public/notes-src';
-  return generateStaticParamsWithBaseDir(baseDir);
+  try {
+    // In production, always use the default notes directory
+    const baseDir = 'public/notes-src';
+    return generateStaticParamsWithBaseDir(baseDir);
+  } catch (error) {
+    // Return empty array if scanning fails to prevent build errors
+    console.warn('Failed to generate static params:', error);
+    return [];
+  }
 }
 
 /**
@@ -56,8 +61,8 @@ export function readNoteContent(filePath: string, baseDir: string = 'public/note
   
   try {
     return readFileSync(fullPath, 'utf-8');
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
+  } catch (error: unknown) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
       throw new Error('Note file not found');
     }
     throw error;
@@ -113,8 +118,8 @@ export default async function NotesPage({
         </div>
       </div>
     );
-  } catch (error: any) {
-    if (error.message === 'Note file not found') {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === 'Note file not found') {
       return (
         <div className="max-w-4xl mx-auto p-6">
           <h1 className="text-3xl font-bold mb-6">Note not found</h1>

@@ -176,6 +176,28 @@ describe('routeParamsToFilePath', () => {
     expect(result).toBe('folder/subfolder/file.md');
     expect(result).not.toContain('\\');
   });
+
+  it('should decode URL-encoded route parameters', () => {
+    // Test URL-encoded Chinese characters and spaces
+    // URL: /notes/20-area/Arlo%20The%20Deer%20%E8%A7%92%E8%89%B2%E8%A8%AD%E5%AE%9A
+    const encodedParams = ['20-area', 'Arlo%20The%20Deer%20%E8%A7%92%E8%89%B2%E8%A8%AD%E5%AE%9A'];
+    const result = routeParamsToFilePath(encodedParams);
+    expect(result).toBe('20-area/Arlo The Deer 角色設定.md');
+  });
+
+  it('should handle mixed encoded and non-encoded segments', () => {
+    // Test mixed case where some segments are encoded, others are not
+    const mixedParams = ['30-resources', 'templates', '%E6%96%87%E7%8D%BB%E7%AD%86%E8%A8%98%E7%AF%84%E6%9C%AC'];
+    const result = routeParamsToFilePath(mixedParams);
+    expect(result).toBe('30-resources/templates/文獻筆記範本.md');
+  });
+
+  it('should handle URL-encoded spaces correctly', () => {
+    // Test %20 decoding to spaces
+    const encodedParams = ['File%20with%20spaces'];
+    const result = routeParamsToFilePath(encodedParams);
+    expect(result).toBe('File with spaces.md');
+  });
 });
 
 describe('Path mapping integration', () => {
