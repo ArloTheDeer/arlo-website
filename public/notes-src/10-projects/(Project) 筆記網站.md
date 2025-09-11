@@ -24,10 +24,16 @@ TBD
 
 # Tasks
 - [ ] 每篇筆記都要有自己的路徑
+	- [ ] 看一下 永久筆記範本 路徑問題
+	- [ ] 修 npm run lint 很多不會過
 - [ ] 導覽欄
+	- [ ] build => cloudflare or 其他地方
 - [ ] 顯示純文字文章內容
 - [ ] 內部連結可以點擊
 - [ ] **粗體**要可以顯示
+
+## 其他功能
+- [ ] 其他功能晚點開發：obsidian canvas, syntax highlight, mermaid 等等
 
 # 未來追蹤
 - TBD
