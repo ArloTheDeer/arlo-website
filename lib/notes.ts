@@ -6,6 +6,16 @@ import { join, relative } from 'path';
 import { decodePathSegment } from './path-utils';
 
 /**
+ * Represents a node in the notes tree structure
+ */
+export interface TreeNode {
+  name: string;
+  type: 'folder' | 'file';
+  path: string;
+  children?: TreeNode[];
+}
+
+/**
  * Scans all notes files in the specified directory
  * @param baseDir - Optional base directory to scan (defaults to 'public/notes-src')
  * @returns Array of file paths relative to the base directory
@@ -119,4 +129,92 @@ export function routeParamsToFilePath(params: string[]): string {
   const filePath = decodedParams.join('/') + '.md';
   
   return filePath;
+}
+
+/**
+ * Builds a tree structure from file paths
+ * @param filePaths - Array of file paths relative to base directory
+ * @returns Root nodes of the tree structure
+ */
+export function buildNotesTree(filePaths: string[]): TreeNode[] {
+  if (filePaths.length === 0) {
+    return [];
+  }
+
+  const nodeMap = new Map<string, TreeNode>();
+  const rootNodes: TreeNode[] = [];
+
+  // Sort filePaths to ensure consistent ordering
+  const sortedPaths = [...filePaths].sort();
+
+  for (const filePath of sortedPaths) {
+    // Normalize path separators
+    const normalizedPath = filePath.replace(/\\/g, '/');
+    const pathSegments = normalizedPath.split('/').filter(segment => segment.length > 0);
+
+    let currentPath = '';
+    let parentNode: TreeNode | null = null;
+
+    for (let i = 0; i < pathSegments.length; i++) {
+      const segment = pathSegments[i];
+      const isLastSegment = i === pathSegments.length - 1;
+
+      // Build current path
+      if (currentPath) {
+        currentPath += '/' + segment;
+      } else {
+        currentPath = segment;
+      }
+
+      // Check if node already exists
+      let currentNode = nodeMap.get(currentPath);
+
+      if (!currentNode) {
+        // Create new node
+        currentNode = {
+          name: segment,
+          type: isLastSegment && segment.endsWith('.md') ? 'file' : 'folder',
+          path: currentPath,
+        };
+
+        // Add children property for folders
+        if (currentNode.type === 'folder') {
+          currentNode.children = [];
+        }
+
+        nodeMap.set(currentPath, currentNode);
+
+        // Add to parent or root
+        if (parentNode) {
+          parentNode.children!.push(currentNode);
+        } else {
+          rootNodes.push(currentNode);
+        }
+      }
+
+      parentNode = currentNode;
+    }
+  }
+
+  // Sort function: folders first, then files, both alphabetically
+  const sortNodes = (nodes: TreeNode[]): void => {
+    nodes.sort((a, b) => {
+      // Folders before files
+      if (a.type !== b.type) {
+        return a.type === 'folder' ? -1 : 1;
+      }
+      // Alphabetical within same type
+      return a.name.localeCompare(b.name);
+    });
+
+    // Recursively sort children
+    for (const node of nodes) {
+      if (node.children) {
+        sortNodes(node.children);
+      }
+    }
+  };
+
+  sortNodes(rootNodes);
+  return rootNodes;
 }

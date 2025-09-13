@@ -4,7 +4,9 @@ import {
   scanNotesFiles,
   filePathToRouteParams,
   generateAllNoteRoutes,
-  routeParamsToFilePath
+  routeParamsToFilePath,
+  buildNotesTree,
+  TreeNode
 } from '../lib/notes';
 
 describe('scanNotesFiles', () => {
@@ -240,5 +242,174 @@ describe('Path mapping integration', () => {
       const backToParams = filePathToRouteParams(filePath);
       expect(backToParams).toEqual(route.slug);
     });
+  });
+});
+
+describe('buildNotesTree', () => {
+  const testBaseDir = path.join(__dirname, 'fixtures', 'notes');
+
+  it('should build a tree structure from simple file paths', () => {
+    const filePaths = ['simple-file.md', 'File with spaces.md'];
+
+    const result = buildNotesTree(filePaths);
+
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      name: 'File with spaces.md',
+      type: 'file',
+      path: 'File with spaces.md'
+    });
+    expect(result).toContainEqual({
+      name: 'simple-file.md',
+      type: 'file',
+      path: 'simple-file.md'
+    });
+  });
+
+  it('should handle nested directory structures correctly', () => {
+    const filePaths = scanNotesFiles(testBaseDir);
+
+    const result = buildNotesTree(filePaths);
+
+    // Should have root level folders and files
+    const folderNames = result.filter(node => node.type === 'folder').map(node => node.name);
+    const fileNames = result.filter(node => node.type === 'file').map(node => node.name);
+
+    expect(folderNames).toContain('00-journal');
+    expect(folderNames).toContain('20-area');
+    expect(fileNames).toContain('simple-file.md');
+    expect(fileNames).toContain('File with spaces.md');
+
+    // Test 00-journal folder structure
+    const journalFolder = result.find(node => node.name === '00-journal');
+    expect(journalFolder?.type).toBe('folder');
+    expect(journalFolder?.children).toHaveLength(2);
+    expect(journalFolder?.children?.map(child => child.name)).toContain('2025-08.md');
+    expect(journalFolder?.children?.map(child => child.name)).toContain('2025-09.md');
+
+    // Test 20-area nested structure
+    const areaFolder = result.find(node => node.name === '20-area');
+    expect(areaFolder?.children).toHaveLength(2); // 'Arlo The Deer 角色設定.md' + 'subdir'
+
+    const subdirFolder = areaFolder?.children?.find(child => child.name === 'subdir');
+    expect(subdirFolder?.type).toBe('folder');
+    expect(subdirFolder?.children).toHaveLength(1);
+    expect(subdirFolder?.children?.[0].name).toBe('深層檔案.md');
+  });
+
+  it('should support Chinese filenames and folder names', () => {
+    const filePaths = [
+      '20-area/Arlo The Deer 角色設定.md',
+      '20-area/subdir/深層檔案.md'
+    ];
+
+    const result = buildNotesTree(filePaths);
+
+    const areaFolder = result.find(node => node.name === '20-area');
+    expect(areaFolder).toBeDefined();
+
+    const chineseFile = areaFolder?.children?.find(child => child.name === 'Arlo The Deer 角色設定.md');
+    expect(chineseFile?.type).toBe('file');
+    expect(chineseFile?.path).toBe('20-area/Arlo The Deer 角色設定.md');
+
+    const subdirFolder = areaFolder?.children?.find(child => child.name === 'subdir');
+    const deepChineseFile = subdirFolder?.children?.find(child => child.name === '深層檔案.md');
+    expect(deepChineseFile?.name).toBe('深層檔案.md');
+  });
+
+  it('should correctly differentiate between folders and files', () => {
+    const filePaths = [
+      'folder/file.md',
+      'another-folder/subfolder/deep-file.md',
+      'root-file.md'
+    ];
+
+    const result = buildNotesTree(filePaths);
+
+    // Root level should have 2 folders and 1 file
+    const folders = result.filter(node => node.type === 'folder');
+    const files = result.filter(node => node.type === 'file');
+
+    expect(folders).toHaveLength(2);
+    expect(files).toHaveLength(1);
+
+    expect(files[0].name).toBe('root-file.md');
+    expect(folders.map(f => f.name)).toContain('folder');
+    expect(folders.map(f => f.name)).toContain('another-folder');
+
+    // All files should have no children property or empty children
+    files.forEach(file => {
+      expect(file.children).toBeUndefined();
+    });
+
+    // All folders should have children property
+    folders.forEach(folder => {
+      expect(folder.children).toBeDefined();
+      expect(Array.isArray(folder.children)).toBe(true);
+    });
+  });
+
+  it('should build proper tree hierarchy with multiple levels', () => {
+    const filePaths = scanNotesFiles(testBaseDir);
+
+    const result = buildNotesTree(filePaths);
+
+    // Test deep nesting: 20-area/subdir/深層檔案.md
+    const areaFolder = result.find(node => node.name === '20-area');
+    const subdirFolder = areaFolder?.children?.find(child => child.name === 'subdir');
+    const deepFile = subdirFolder?.children?.find(child => child.name === '深層檔案.md');
+
+    expect(deepFile).toMatchObject({
+      name: '深層檔案.md',
+      type: 'file',
+      path: '20-area/subdir/深層檔案.md'
+    });
+
+    // Verify parent-child relationships
+    expect(areaFolder?.path).toBe('20-area');
+    expect(subdirFolder?.path).toBe('20-area/subdir');
+    expect(deepFile?.path).toBe('20-area/subdir/深層檔案.md');
+  });
+
+  it('should handle empty input gracefully', () => {
+    const result = buildNotesTree([]);
+
+    expect(result).toEqual([]);
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it('should handle files in root directory', () => {
+    const filePaths = ['simple-file.md', 'File with spaces.md'];
+
+    const result = buildNotesTree(filePaths);
+
+    expect(result).toHaveLength(2);
+    result.forEach(node => {
+      expect(node.type).toBe('file');
+      expect(node.children).toBeUndefined();
+      expect(node.path).not.toContain('/');
+    });
+  });
+
+  it('should sort children nodes consistently', () => {
+    const filePaths = [
+      'folder/zebra.md',
+      'folder/alpha.md',
+      'folder/subfolder-z/file.md',
+      'folder/subfolder-a/file.md'
+    ];
+
+    const result = buildNotesTree(filePaths);
+
+    const folder = result.find(node => node.name === 'folder');
+    const childNames = folder?.children?.map(child => child.name);
+
+    // Should be sorted alphabetically: folders first, then files
+    expect(childNames).toEqual([
+      'subfolder-a',
+      'subfolder-z',
+      'alpha.md',
+      'zebra.md'
+    ]);
   });
 });
