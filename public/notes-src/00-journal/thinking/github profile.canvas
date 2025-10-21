@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"9789ae0f2139ee1d","x":150,"y":-395,"width":250,"height":145,"type":"text","text":"把撰寫筆記跟用 AI 寫程式的完整流程與產出分享出來的專案"},
+		{"id":"55347d4f4bdc5caa","x":-240,"y":-250,"width":250,"height":60,"type":"text","text":"Arlo"},
+		{"id":"b2e8f72c76e040bb","x":580,"y":-700,"width":411,"height":378,"type":"text","text":"撰寫筆記的部分，是因為我自己撰寫筆記有很多覺得可以分享的地方。但是因為筆記其實是很私人的，包含了工作與私人的各種筆記。\n\n所以如果有一個 Youtube 直播是紀錄了完整的筆記流程，同時也有自己正在開發的專案，也同時在 Youtube 上直播時，就可以完整地來分享整個撰寫筆記的過程"},
+		{"id":"c55f6940b1e84385","x":580,"y":-190,"width":438,"height":390,"type":"text","text":"為什麼要在 Youtube 上直播 AI 寫程式。因為自己經常用 AI 撰寫程式，但是跟 AI 協作的方式很難跟其他人分享，如果要寫成文章或錄成影片都有點困難，但如果有一個 Youtube 直播可以完整的記錄整個開發過程，那之後想要完整的分享或者是剪成精華都比較容易。\n\n同時我覺得跟 AI 協作的時候其實有很多時間等待，所以可以跟觀眾聊天。"},
+		{"id":"8772b273e1e51a4d","x":-185,"y":-31,"width":425,"height":391,"type":"text","text":"Arlo The Deer 是一個實驗專案，透過將筆記、任務管理、使用 AI 寫程式的所有過程在 Youtube 直播，並且將產出放到 Github 來完整記錄從構思、任務管理到產出的所有事宜。"}
+	],
+	"edges":[
+		{"id":"f701f832dc940fcf","fromNode":"55347d4f4bdc5caa","fromSide":"right","toNode":"9789ae0f2139ee1d","toSide":"left"},
+		{"id":"bd376cabc922a49f","fromNode":"9789ae0f2139ee1d","fromSide":"right","toNode":"b2e8f72c76e040bb","toSide":"left"},
+		{"id":"b3b53335307b8863","fromNode":"9789ae0f2139ee1d","fromSide":"right","toNode":"c55f6940b1e84385","toSide":"left"}
+	]
+}

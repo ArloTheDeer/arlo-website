@@ -5,9 +5,12 @@
 - [ ] 看一下月誌有什麼事情可以今天作
 
 ## 🛠 Todo
+### 每次都要做
 - [ ] Prepare a day
 - [ ] 把今天做的事情寫到月誌
 - [ ] obsidian vault 備份到 github
 
+### 今天的工作
+- [ ] TBD
 
 # 💡 Notes
