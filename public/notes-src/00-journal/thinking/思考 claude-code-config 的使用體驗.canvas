@@ -1,0 +1,36 @@
+{
+	"nodes":[
+		{"id":"71573e1281fbd0ae","x":100,"y":102,"width":250,"height":60,"type":"text","text":"create impl plan"},
+		{"id":"3187e83137c044e8","x":-900,"y":102,"width":250,"height":60,"type":"text","text":"research "},
+		{"id":"7b0002f68fad864c","x":-840,"y":-280,"width":380,"height":200,"color":"5","type":"text","text":"PRD 撰寫的時候，應該要專注於高階的需求，從使用者的角度看，即使有 research 文件的狀況下，也不應該把 research 文件的技術細節，帶到 PRD。"},
+		{"id":"19b327b67e5fa22f","x":-500,"y":102,"width":250,"height":60,"type":"text","text":"create PRD"},
+		{"id":"a6435b2bbfea1b8c","x":690,"y":102,"width":250,"height":60,"type":"text","text":"process-task-list"},
+		{"id":"47a16849c70ecd45","type":"text","text":"每個 slash command 對於整個工作流程的認知不過，導致撰寫內容時經常會寫超過自己該寫的內容","x":-345,"y":-280,"width":380,"height":200,"color":"5"},
+		{"id":"48634c1d01ca431d","type":"text","text":"impl plan 編號，我們應該拿掉編號，因為有時候會插入新任務，這個時候要重新編號，AI 不太擅長","x":160,"y":-280,"width":380,"height":200,"color":"3"},
+		{"id":"97c696ce0d7c3376","type":"text","text":"不同工作太多，有有 TDD 的任務開發、無 TDD 的任務開發、還有 acceptance test 的工作，雖然已經寫到別的 agent 了，但是任務量還是太大","x":750,"y":-300,"width":380,"height":200,"color":"3"},
+		{"id":"5ecaa3076a00aee8","type":"text","text":"想要支援 github copilot，像是 TodoWrite 是 Claude Code 的專有名詞，但是在 github copilot 裡面有別種說法，應該要用個統一的說法讓兩邊都會動","x":1360,"y":-280,"width":380,"height":200,"color":"3"},
+		{"id":"eb75ff3eb60accba","type":"text","text":"- 試用 GitHub Copilot\n\t- 比較便宜 10 USD\n\t- premium request 數量有限\n\t- 跟 vscode 的整合又比較好\n\t\t- MCP 比較好安裝\n\t\t- 可以存取 vscode terminal\n\t\t\t- 比如說 debug 很方便\n\t- 不能存取 repository 的圖片跟 PDF\n\t\t- 推測是因為要支援很多不同的 AI model 的關係","x":1360,"y":132,"width":640,"height":420,"color":"3"},
+		{"id":"cb869efb57c10c3e","x":782,"y":306,"width":250,"height":60,"type":"text","text":"acceptance test"},
+		{"id":"25033dd86b857ada","x":-900,"y":320,"width":250,"height":60,"type":"text","text":"含有實作細節"},
+		{"id":"ff2e710182b9c4c8","type":"text","text":"每一個任務，應該都要有一個區域可以寫實作備註，交代實作的時候有遇到什麼狀況，如果有一個地方可以寫實作備註，特別是實作上跟當初規劃布一樣的地方","x":-600,"y":520,"width":380,"height":200,"color":"3"},
+		{"id":"eea6f53297ec0fdf","type":"text","text":"每次在 git commit 之前，應該就要先把任務打勾，打勾完再跟修改的東西一起 commit","x":-155,"y":520,"width":380,"height":200,"color":"5"},
+		{"id":"3cca78f72de485bd","type":"text","text":"所有工作做完之後，應該要有一個步驟是更新 README 跟 CLAUDE.md","x":310,"y":520,"width":380,"height":200,"color":"3"},
+		{"id":"9dc0a8b3cacd40dd","x":-1460,"y":-300,"width":439,"height":191,"color":"3","type":"text","text":"research 的時候，經常會有 WebFetch 還特地問一次可不可以抓取該網頁的內容，這個部分應該要自動授權才對"}
+	],
+	"edges":[
+		{"id":"1e1a9b9930c3b2f2","fromNode":"3187e83137c044e8","fromSide":"right","toNode":"19b327b67e5fa22f","toSide":"left"},
+		{"id":"ac7e0d48d4972ca1","fromNode":"19b327b67e5fa22f","fromSide":"right","toNode":"71573e1281fbd0ae","toSide":"left"},
+		{"id":"6d00b7ddf2dcd6aa","fromNode":"71573e1281fbd0ae","fromSide":"right","toNode":"a6435b2bbfea1b8c","toSide":"left"},
+		{"id":"8f2c5d0e01f5b701","fromNode":"3187e83137c044e8","fromSide":"bottom","toNode":"25033dd86b857ada","toSide":"top"},
+		{"id":"c75da0d11b97130e","fromNode":"25033dd86b857ada","fromSide":"right","toNode":"19b327b67e5fa22f","toSide":"bottom"},
+		{"id":"a7bd1a505eb7f1dd","fromNode":"7b0002f68fad864c","fromSide":"bottom","toNode":"19b327b67e5fa22f","toSide":"top","toEnd":"none"},
+		{"id":"5d7dc078dc9ccfc2","fromNode":"19b327b67e5fa22f","fromSide":"top","toNode":"47a16849c70ecd45","toSide":"bottom","toEnd":"none"},
+		{"id":"b44b2300e6b1f9d6","fromNode":"71573e1281fbd0ae","fromSide":"top","toNode":"48634c1d01ca431d","toSide":"bottom","toEnd":"none"},
+		{"id":"5f94053008b29bb4","fromNode":"71573e1281fbd0ae","fromSide":"bottom","toNode":"ff2e710182b9c4c8","toSide":"top","toEnd":"none"},
+		{"id":"08ac3c534df29272","fromNode":"eea6f53297ec0fdf","fromSide":"top","toNode":"71573e1281fbd0ae","toSide":"bottom","toEnd":"none"},
+		{"id":"d3d9d32f9f573e3c","fromNode":"a6435b2bbfea1b8c","fromSide":"top","toNode":"97c696ce0d7c3376","toSide":"bottom","toEnd":"none"},
+		{"id":"5044d41ec3f02bcf","fromNode":"97c696ce0d7c3376","fromSide":"right","toNode":"5ecaa3076a00aee8","toSide":"left","toEnd":"none"},
+		{"id":"2caee026bc688a04","fromNode":"3cca78f72de485bd","fromSide":"top","toNode":"71573e1281fbd0ae","toSide":"bottom","toEnd":"none"},
+		{"id":"4d6274359a42d531","fromNode":"9dc0a8b3cacd40dd","fromSide":"bottom","toNode":"3187e83137c044e8","toSide":"top","toEnd":"none"}
+	]
+}
