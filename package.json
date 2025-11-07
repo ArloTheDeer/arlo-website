@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "vitest --run",
     "lint": "eslint",
-    "copy-obsidian-vault": "node scripts/copy-obsidian-vault.js"
+    "sync": "node scripts/copy-obsidian-vault.js"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
